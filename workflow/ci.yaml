@@ -1,0 +1,36 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GO_VERSION: 1.16
+    steps:
+      - uses: actions/test@v2
+
+      - name: Install Dependences
+        run: composer install
+
+      - name: Test
+        run: composer test
+
+      - name: EsLint Install
+        run: composer lint
+
+      - name: CI Successful Ok
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          status: "passed"
+          text: "Go CI succesfully."
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
