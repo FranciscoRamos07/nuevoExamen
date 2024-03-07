@@ -15,16 +15,16 @@ jobs:
     env:
       GO_VERSION: 1.16
     steps:
-      - uses: actions/test@v2
+      - uses: actions/checkout@v4
 
       - name: Install Dependences
         run: composer install
 
       - name: Test
-        run: composer test
+        run: composer test tests
 
       - name: EsLint Install
-        run: composer lint
+        run: composer lint src
 
       - name: CI Successful Ok
         if: success()
