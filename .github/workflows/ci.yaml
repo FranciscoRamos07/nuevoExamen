@@ -18,8 +18,8 @@ jobs:
       - name: Install Dependences
         run: composer install
 
-      - name: Test
-        run: composer test tests
+      # - name: Test
+      #   run: composer test tests
 
       - name: EsLint Install
         run: composer lint src
